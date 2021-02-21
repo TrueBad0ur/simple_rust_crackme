@@ -1,0 +1,32 @@
+//mod flag;
+
+use std::io;
+use std::str;
+
+fn main() {
+	//println!("{}", flag::flag());
+	let to_xor = vec![0x61, 0x70, 0x36, 0x61, 0x69, 0x5d, 0x6f, 0x31, 0x5d, 0x33, 0x64, 0x5d, 0x7b, 0x32, 0x77, 0x5d, 0x61, 0x36, 0x6c];
+	let mut answer = Vec::new();
+	let you_did_it = vec![0x59, 0x6f, 0x75, 0x75, 0x75, 0x75, 0x75, 0x20, 0x64, 0x31, 0x64, 0x20, 0x31, 0x74, 0x21];
+	let oh_no = vec![0x6f, 0x68, 0x2c, 0x20, 0x6e, 0x6f, 0x6f, 0x6f, 0x6f, 0x20, 0x3a, 0x28];
+	let mut inp_pass: String = String::new();
+
+	io::stdin()
+    	.read_line(&mut inp_pass)
+    	.expect("Failed to read line");
+
+
+    for i in to_xor.iter() {
+		answer.push(i^0x2);
+	}
+
+	let password: String = String::from(str::from_utf8(&answer).unwrap());
+	let answer: bool = inp_pass.trim().eq(&password);
+
+	if answer {
+		println!("{}", String::from(str::from_utf8(&you_did_it).unwrap()));
+	} else {
+		println!("{}", String::from(str::from_utf8(&oh_no).unwrap()));
+	}
+
+}
